@@ -21,31 +21,34 @@ struct SlideToUnlockButton: View {
                         .transition(.opacity)
                 }
                 
-                Circle()
-                    .fill(Color.green)
-                    .frame(width: 60, height: 60)
-                    .offset(x: xOffset)
-                    .gesture(DragGesture()
-                                .onChanged { value in
-                                    let newOffset = xOffset + value.translation.width
-                                    xOffset = max(0, min(newOffset, 200))
-                                }
-                                .onEnded { value in
-                                    if xOffset > 200 {
-                                        unlocked = true
-                                    } else {
-                                        xOffset = 0
-                                        unlocked = false
+                GeometryReader { geometry in
+                    Circle()
+                        .fill(Color.green)
+                        .frame(width: 60, height: 60)
+                        .position(x: min(max(xOffset + 30, 30), geometry.size.width - 30), y: geometry.size.height / 2)
+                        .gesture(DragGesture()
+                                    .onChanged { value in
+                                        xOffset = value.location.x - 30
                                     }
-                                }
-                    )
+                                    .onEnded { value in
+                                        let threshold: CGFloat = geometry.size.width - 30
+                                        if xOffset > threshold {
+                                            xOffset = threshold
+                                            unlocked = true
+                                        } else {
+                                            xOffset = 0
+                                            unlocked = false
+                                        }
+                                    }
+                        )
+                }
             }
             
             Spacer()
         }
         .background(Color.black)
-        .cornerRadius(10)
-        .frame(height: 80)
+        .cornerRadius(30)
+        .frame(height: 60)
         .animation(.spring())
         .padding()
     }
