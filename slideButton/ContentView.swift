@@ -4,11 +4,32 @@ struct SlideToUnlockButton: View {
     @State private var xOffset: CGFloat = 0
     @State private var unlocked = false
     @State private var height: CGFloat = 60
+    private var thumbPadding: CGFloat {
+        return height / 12
+    }
+    private var thumbSize: CGFloat {
+        return height - thumbPadding
+    }
+    private var cornerRadius: CGFloat {
+        return height / 2
+    }
+    private var halfHeight: CGFloat {
+        return cornerRadius
+    }
+    
+    private var imageheight: CGFloat {
+        return (height - (thumbPadding * 2))/2
+    }
+    
+    private var thumbEnd: CGFloat {
+        return ((height - (2 * thumbPadding))/2) - (thumbPadding/2)
+    }
+    
     var body: some View {
         HStack {
             ZStack(alignment: .leading) {
                 GeometryReader { geometry in
-                    if xOffset >= 200 {
+                    if xOffset >= geometry.size.width - height{
                         Text("Unlocked")
                             .font(.title)
                             .foregroundColor(.white)
@@ -26,15 +47,29 @@ struct SlideToUnlockButton: View {
                     
                     Circle()
                         .fill(Color.blue)
-                        .frame(width: height-5, height: height-5)
-                        .position(x: min(max(xOffset + height/2, height/2), geometry.size.width - 22.5), y: geometry.size.height / 2)
+                        .frame(width: thumbSize, height: thumbSize)
+                        .position(
+                            x: min(max(xOffset + halfHeight, halfHeight),
+                                   geometry.size.width - thumbEnd),
+                            y: geometry.size.height / 2)
+                        .overlay(
+                            
+                            Image(unlocked ? "checkedIn" : "checkInIcon")
+                                .resizable()
+                                .frame(width: imageheight, height: imageheight)
+                                .foregroundColor(.white)
+                                .position(
+                                    x: min(max(xOffset + halfHeight, halfHeight),
+                                           geometry.size.width - thumbEnd),
+                                    y: geometry.size.height / 2)
+                        )
                         .gesture(DragGesture()
                                     .onChanged { value in
-                                        print(value)
-                                        xOffset = value.location.x - 30
+                                        xOffset = value.location.x - halfHeight
+                                        print(xOffset)
                                     }
                                     .onEnded { value in
-                                        let threshold: CGFloat = geometry.size.width - 30
+                                        let threshold: CGFloat = geometry.size.width - halfHeight
                                         if xOffset > threshold {
                                             xOffset = threshold
                                             unlocked = true
@@ -50,11 +85,10 @@ struct SlideToUnlockButton: View {
             Spacer()
         }
         .background(Color.black)
-        .cornerRadius(height/2.0)
+        .cornerRadius(cornerRadius)
         .frame(height: height)
         .padding(16)
         .animation(.spring())
-        //.padding()
     }
 }
 
