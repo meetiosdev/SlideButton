@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A22E1882A4DD5EE00552DF0 /* SlideButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22E1872A4DD5EE00552DF0 /* SlideButtonView.swift */; };
 		4A2D60252A4CA5BD00CB3840 /* slideButtonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D60242A4CA5BD00CB3840 /* slideButtonApp.swift */; };
 		4A2D60272A4CA5BD00CB3840 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D60262A4CA5BD00CB3840 /* ContentView.swift */; };
 		4A2D60292A4CA5BE00CB3840 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A2D60282A4CA5BE00CB3840 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A22E1872A4DD5EE00552DF0 /* SlideButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideButtonView.swift; sourceTree = "<group>"; };
 		4A2D60212A4CA5BD00CB3840 /* slideButton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slideButton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2D60242A4CA5BD00CB3840 /* slideButtonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideButtonApp.swift; sourceTree = "<group>"; };
 		4A2D60262A4CA5BD00CB3840 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				4A2D60242A4CA5BD00CB3840 /* slideButtonApp.swift */,
+				4A22E1872A4DD5EE00552DF0 /* SlideButtonView.swift */,
 				4A2D60262A4CA5BD00CB3840 /* ContentView.swift */,
 				4A2D60282A4CA5BE00CB3840 /* Assets.xcassets */,
 				4A2D602A2A4CA5BE00CB3840 /* Preview Content */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A2D60272A4CA5BD00CB3840 /* ContentView.swift in Sources */,
+				4A22E1882A4DD5EE00552DF0 /* SlideButtonView.swift in Sources */,
 				4A2D60252A4CA5BD00CB3840 /* slideButtonApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
