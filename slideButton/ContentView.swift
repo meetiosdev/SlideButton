@@ -3,7 +3,7 @@ struct ContentView: View {
     @State private var checked = false
     
     var body: some View {
-        SlideButton(checked: $checked, checkInAction: {
+        SlideButtonView(checked: $checked, checkInAction: {
             if checked{
                 print("open")
             }else{

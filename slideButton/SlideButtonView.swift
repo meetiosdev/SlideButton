@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-struct SlideButton: View {
+struct SlideButtonView: View {
     @Binding var checked: Bool
     var checkInAction: () -> Void
     var thumbImage: Image
