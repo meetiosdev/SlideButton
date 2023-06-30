@@ -52,41 +52,39 @@ struct SlideButtonView: View {
                             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                     }
                     
-                    Circle()
-                        .fill(Color.blue)
-                        .frame(width: thumbSize, height: thumbSize)
-                        .position(
-                            x: min(max(xOffset + halfHeight, halfHeight), geometry.size.width - thumbEnd),
-                            y: geometry.size.height / 2)
-                        .overlay(
-                            thumbImage
-                                .resizable()
-                                .frame(width: imageHeight, height: imageHeight)
-                                .foregroundColor(.white)
-                                .position(
-                                    x: min(max(xOffset + halfHeight, halfHeight), geometry.size.width - thumbEnd),
-                                    y: geometry.size.height / 2)
-                        )
-                        .gesture(DragGesture()
-                                    .onChanged { value in
-                                        xOffset = value.location.x - halfHeight
-                                        let threshold: CGFloat = geometry.size.width * 0.75
-                                        checked = xOffset >= threshold
-                                        checkInAction()
+                    VStack {
+                        thumbImage
+                            .resizable()
+                            .frame(width: imageHeight, height: imageHeight)
+                            .foregroundColor(.white)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.red)
+                    .frame(width: thumbSize, height: thumbSize)
+                    .cornerRadius(thumbSize / 2)
+                    .position(
+                        x: min(max(xOffset + halfHeight, halfHeight), geometry.size.width - thumbEnd),
+                        y: geometry.size.height / 2
+                    )
+                    .gesture(DragGesture()
+                                .onChanged { value in
+                                    xOffset = value.location.x - halfHeight
+                                    let threshold: CGFloat = geometry.size.width * 0.75
+                                    checked = xOffset >= threshold
+                                    checkInAction()
+                                }
+                                .onEnded { value in
+                                    let threshold: CGFloat = geometry.size.width * 0.75
+                                    if xOffset > threshold {
+                                        xOffset = geometry.size.width - (height - (thumbPadding * 2))
+                                        checked = true
+                                    } else {
+                                        xOffset = 0
+                                        checked = false
                                     }
-                                    .onEnded { value in
-                                        let threshold: CGFloat = geometry.size.width * 0.75
-                                        if xOffset > threshold {
-                                            xOffset = geometry.size.width - (height - (thumbPadding * 2))
-                                            checked = true
-                                            
-                                        } else {
-                                            xOffset = 0
-                                            checked = false
-                                        }
-                                        checkInAction()
-                                    }
-                        )
+                                    checkInAction()
+                                }
+                    )
                 }
             }
             
@@ -99,3 +97,4 @@ struct SlideButtonView: View {
         .animation(.spring())
     }
 }
+
