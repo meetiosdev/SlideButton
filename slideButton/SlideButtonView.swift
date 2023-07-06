@@ -1,14 +1,7 @@
-//
-//  Button.swift
-//  slideButton
-//
-//  Created by Swarajmeet Singh on 29/06/23.
-//
-
 import SwiftUI
 struct SlideButtonView: View {
-    @Binding var checked: Bool
-    var checkInAction: () -> Void
+    @Binding var slideEnded: Bool
+    var slideAction: () -> Void
     var thumbImage: Image
     
     @State private var xOffset: CGFloat = 0
@@ -39,13 +32,13 @@ struct SlideButtonView: View {
             ZStack(alignment: .leading) {
                 GeometryReader { geometry in
                     if xOffset >= geometry.size.width * 0.75 {
-                        Text("Slide to check out")
+                        Text("Slide to Remove")
                             .font(Font.custom("Assistant", size: 18))
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white)
                             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                     } else {
-                        Text("Slide to check in")
+                        Text("Slide to Download")
                             .font(Font.custom("Assistant", size: 18))
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white)
@@ -70,19 +63,19 @@ struct SlideButtonView: View {
                                 .onChanged { value in
                                     xOffset = value.location.x - halfHeight
                                     let threshold: CGFloat = geometry.size.width * 0.75
-                                    checked = xOffset >= threshold
-                                    checkInAction()
+                                    slideEnded = xOffset >= threshold
+                                    //checkInAction()
                                 }
                                 .onEnded { value in
                                     let threshold: CGFloat = geometry.size.width * 0.75
                                     if xOffset > threshold {
                                         xOffset = geometry.size.width - (height - (thumbPadding * 2))
-                                        checked = true
+                                        slideEnded = true
                                     } else {
                                         xOffset = 0
-                                        checked = false
+                                        slideEnded = false
                                     }
-                                    checkInAction()
+                                    slideAction()
                                 }
                     )
                 }
@@ -97,4 +90,3 @@ struct SlideButtonView: View {
         .animation(.spring())
     }
 }
-
